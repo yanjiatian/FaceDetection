@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">FaceDetection</string>
+    <string name="app_name">人脸识别</string>
+    <string name="tip_restart_open">请重启设备后进行操作</string>
+    <string name="open_camera_busy">正在开启摄像头</string>
+    <string name="tip_open_busy">请稍后或重新进入应用程序</string>
+    <string name="error_open_camera">摄像头开启失败</string>
+    <string name="stranger">陌生人</string>
 </resources>

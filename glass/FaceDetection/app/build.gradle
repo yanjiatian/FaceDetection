@@ -17,6 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            res.srcDirs = ['src/main/res', 'src/main/res/raw']
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -24,6 +33,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    compile(name: 'ceyes.widgets-release', ext: 'aar')
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
