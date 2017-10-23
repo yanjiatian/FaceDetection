@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Robot</string>
-    <string name="app_id">59369e5f</string>
-    <string name="start_service">开启服务</string>
-    <string name="stop_service">停止服务</string>
-</resources>
