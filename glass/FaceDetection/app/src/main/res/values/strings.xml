@@ -5,4 +5,6 @@
     <string name="tip_open_busy">请稍后或重新进入应用程序</string>
     <string name="error_open_camera">摄像头开启失败</string>
     <string name="stranger">陌生人</string>
+    <string name="rationale_camera">申请调用相机</string>
+    <string name="rationale_storage">申请存储卡读写</string>
 </resources>

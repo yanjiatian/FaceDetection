@@ -1,5 +1,7 @@
 package com.jeff.facedetection;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.jeff.facedetection.camera.GlassCameraHelper;
 import com.jeff.facedetection.camera.GlassCameraPreview;
+import com.jeff.facedetection.utils.PermissionUtils;
 import com.jeff.facedetection.utils.Utils;
 
 import java.io.BufferedOutputStream;
@@ -29,11 +32,14 @@ import cn.ceyes.glasswidget.alertview.GlassAlert;
 import cn.ceyes.glasswidget.alertview.GlassAlertEntity;
 import cn.ceyes.glasswidget.gestures.GlassGestureDetector;
 import cn.ceyes.glasswidget.gestures.GlassGestureListener;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
+
 import com.example.frsdktest.FaceDetectorHelper;
 import com.example.frsdktest.RecFace;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements EasyPermissions.PermissionCallbacks {
     private static final String TAG = MainActivity.class.getSimpleName();
     private FrameLayout mParentView = null;
     private GlassCameraPreview mCameraPreview = null;
@@ -55,10 +61,12 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        PermissionUtils.checkPermissions(MainActivity.this);
         FaceDetectorHelper.getInstance().init(this);
         initGlassAlert();
         initViews();
         initDetector();
+
     }
 
     @Override
@@ -78,6 +86,7 @@ public class MainActivity extends Activity {
         super.onDestroy();
 //        FaceDetectorHelper.getInstance().destroyModel();
     }
+
 
     private void initViews() {
         mParentView = (FrameLayout) findViewById(R.id.parent_view);
@@ -118,6 +127,29 @@ public class MainActivity extends Activity {
         });
     }
 
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        Log.d(TAG, "onPermissionsGranted:" + requestCode + ":" + perms.size());
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        Log.d(TAG, "onPermissionsDenied:" + requestCode + ":" + perms.size());
+
+        // (Optional) Check whether the user denied any permissions and checked "NEVER ASK AGAIN."
+        // This will display a dialog directing them to enable the permission in app settings.
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
+            // Do something after user returned from app settings screen, like showing a Toast.
+        }
+    }
 
     private class GlassCameraPictureCallBack implements GlassCameraHelper.GlassCameraTakePicCallback {
         @Override

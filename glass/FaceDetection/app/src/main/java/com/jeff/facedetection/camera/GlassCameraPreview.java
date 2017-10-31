@@ -2,10 +2,15 @@ package com.jeff.facedetection.camera;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.util.List;
+
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class GlassCameraPreview extends SurfaceView implements
         SurfaceHolder.Callback {
@@ -62,6 +67,7 @@ public class GlassCameraPreview extends SurfaceView implements
     public SurfaceHolder getSurfaceHolder() {
         return mHolder;
     }
+
 
     public interface SurfaceHolderCallback {
         public void surfaceCreated(SurfaceHolder holder);

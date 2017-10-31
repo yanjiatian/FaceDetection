@@ -7,6 +7,9 @@ import android.hardware.Camera.PictureCallback;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
+import java.text.DecimalFormat;
+import java.util.List;
+
 public class GlassCameraHelper {
 
     private static final String TAG = GlassCameraHelper.class.getSimpleName();
@@ -157,7 +160,7 @@ public class GlassCameraHelper {
             Log.d(TAG, "camera scene mCamera is null");
             return;
         }
-        /*DecimalFormat df = new DecimalFormat("0.00");
+        DecimalFormat df = new DecimalFormat("0.00");
         List<Camera.Size> pictureSizes = mCamera.getParameters().getSupportedPictureSizes();
         List<Camera.Size> previewSizes = mCamera.getParameters().getSupportedPreviewSizes();
 
@@ -169,13 +172,13 @@ public class GlassCameraHelper {
         for (int i = 0; i < previewSizes.size(); i++) {
             Camera.Size pSize = previewSizes.get(i);
             Log.i(TAG, "-----previewSize.width = " + pSize.width + "-----previewSize.height = " + pSize.height + " -- " + df.format((float) pSize.width / pSize.height) + " ----- " + df.format((float) 16 / 9));
-        }*/
+        }
         // 获得相机参数
         Camera.Parameters mParams = mCamera.getParameters();
 
         mParams.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
         mParams.setPreviewSize(1280, 720); // 设置预览大小
-        mParams.setPictureSize(1344, 756);
+        mParams.setPictureSize(1920, 1080);
         mParams.setVideoStabilization(true);
         mParams.setPictureFormat(ImageFormat.JPEG);
         mCamera.setDisplayOrientation(degrees);
